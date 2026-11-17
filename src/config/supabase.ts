@@ -2,7 +2,9 @@ import { createClient, SupabaseClient } from "@supabase/supabase-js"
 
 let client: SupabaseClient | null = null
 
-// Supabase is optional: only needed for vehicle photo uploads.
+// Supabase use only needed for vehicle photo uploads.
+
+
 export const isStorageConfigured = () =>
   !!process.env.SUPABASE_URL && !!process.env.SUPABASE_KEY
 
