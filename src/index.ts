@@ -9,8 +9,7 @@ import JobRouter from "./routes/job.routers"
 import AdminRouter from "./routes/admin.routers"
 dotenv.config({ quiet: true })
 
-// Local dev only: some networks/ISPs block the DNS SRV lookup used by mongodb+srv:// URLs.
-// (Not needed on Vercel.)
+// Local dev only: some networks/ISPs block the DNS SRV lookup used by mongodb+srv
 if (!process.env.VERCEL) dns.setServers(["8.8.8.8", "1.1.1.1"])
 
 const MONGO_URL = process.env.MONGO_LOCAL_URL || ""
@@ -20,6 +19,8 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
+
+
 
 // Serverless: connect lazily and reuse the connection between requests
 let connecting: Promise<typeof mongoose> | null = null
@@ -49,6 +50,9 @@ app.use("/api/v1/auth", AuthRouter)
 app.use("/api/v1/vehicles", VehicleRouter)
 app.use("/api/v1/jobs", JobRouter)
 app.use("/api/v1/admin", AdminRouter)
+
+
+
 
 
 // Local development only. On Vercel the exported app is used as the function.
