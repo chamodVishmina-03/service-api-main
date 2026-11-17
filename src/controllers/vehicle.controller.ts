@@ -76,6 +76,7 @@ export const createVehicle = async (req: AuthRequest, res: Response) => {
 
 
 
+
 export const getMyVehicles = async (req: AuthRequest, res: Response) => {
   try {
     const vehicles = await Vehicle.find({ owner: req.user?.sub }).sort({
@@ -86,6 +87,10 @@ export const getMyVehicles = async (req: AuthRequest, res: Response) => {
     res.status(500).json({ error: "Internal Server Error" })
   }
 }
+
+
+
+
 
 export const getAllVehicles = async (req: AuthRequest, res: Response) => {
   try {
@@ -114,6 +119,9 @@ export const getAllVehicles = async (req: AuthRequest, res: Response) => {
     res.status(500).json({ error: "Internal Server Error" })
   }
 }
+
+
+
 
 export const getVehicleById = async (req: AuthRequest, res: Response) => {
   try {
@@ -144,6 +152,10 @@ export const getVehicleById = async (req: AuthRequest, res: Response) => {
   }
 }
 
+
+
+
+
 export const updateVehicle = async (req: AuthRequest, res: Response) => {
   try {
     const { id } = req.params
@@ -171,6 +183,10 @@ export const updateVehicle = async (req: AuthRequest, res: Response) => {
     res.status(500).json({ error: "Internal Server Error" })
   }
 }
+
+
+
+
 
 export const deleteVehicle = async (req: AuthRequest, res: Response) => {
   try {
