@@ -4,8 +4,10 @@ import crypto from "crypto"
 export const uploadImage = async (
   file: Express.Multer.File,
   bucketName: string = "files"
+  
 
 ): Promise<string> => {
+
 
   const supabase = getSupabase()
   const uuid = crypto.randomUUID()
