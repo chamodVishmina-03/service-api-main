@@ -22,11 +22,14 @@ export const SERVICE_TYPES = [
   "OTHER"
 ]
 
+
 export interface IPart {
   name: string
   quantity: number
   unitPrice: number
 }
+
+
 
 export interface IServiceJob extends Document {
   jobNumber: string
@@ -58,6 +61,9 @@ export interface IServiceJob extends Document {
   createdAt: Date
   updatedAt: Date
 }
+
+
+
 
 const jobSchema = new Schema<IServiceJob>(
   {
@@ -115,6 +121,8 @@ const jobSchema = new Schema<IServiceJob>(
   { timestamps: true }
 )
 
+
+
 jobSchema.pre("save", function () {
   if (!this.jobNumber) {
     this.jobNumber = `SJ-${Date.now().toString(36).toUpperCase()}${Math.floor(
@@ -127,5 +135,7 @@ jobSchema.pre("save", function () {
   )
   this.totalCost = partsTotal + (this.laborCost || 0)
 })
+
+
 
 export const ServiceJob = model<IServiceJob>("service_jobs", jobSchema)
