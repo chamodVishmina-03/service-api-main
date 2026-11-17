@@ -1,15 +1,19 @@
 import { GoogleGenAI } from "@google/genai"
 
+
 // Tried in order. Set GEMINI_MODEL in .env to force a specific model.
-// "gemini-flash-latest" always points at Google's newest Flash model.
 const DEFAULT_MODELS = ["gemini-flash-latest", "gemini-3.5-flash", "gemini-3.1-flash-lite"]
 const getModels = () =>
   process.env.GEMINI_MODEL ? [process.env.GEMINI_MODEL, ...DEFAULT_MODELS] : DEFAULT_MODELS
 
+
+
 const REQUEST_TIMEOUT_MS = 15000 // one Gemini call
-const TOTAL_TIMEOUT_MS = 30000 // everything (all models + retries)
+const TOTAL_TIMEOUT_MS = 30000 // everything all models + retries
+
 
 const delay = (ms: number) => new Promise((r) => setTimeout(r, ms))
+
 
 // Rejects if the promise does not settle in time, so a hung request can never block the UI
 const withTimeout = <T>(p: Promise<T>, ms: number): Promise<T> =>
@@ -35,11 +39,9 @@ const getClient = () => {
   return client
 }
 
-/**
- * Produces a short, preliminary diagnosis from the customer's description.
- * Falls back to echoing the symptoms if AI is unavailable, so booking never breaks.
- * The reason for any fallback is printed in the API console.
- */
+
+
+
 export const generateDiagnosis = async (
   vehicleInfo: string,
   symptoms: string
@@ -92,7 +94,7 @@ End with: "This is a preliminary AI suggestion; a physical inspection is require
           await delay(attempt * 1000)
           continue
         }
-        break // 400/401/403/404/timeout etc. – try the next model
+        break 
       }
     }
   }
