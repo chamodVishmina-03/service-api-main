@@ -24,6 +24,11 @@ export const register = async (req: Request, res: Response) => {
 
     const hashedPassword = await bcrypt.hash(password, 10)
 
+
+
+
+
+    
     // Public registration always creates a CUSTOMER.
     // ADMIN promotes users to MECHANIC / ADMIN later.
     await UserModel.create({

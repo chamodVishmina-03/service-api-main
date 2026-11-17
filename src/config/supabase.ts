@@ -8,6 +8,7 @@ let client: SupabaseClient | null = null
 export const isStorageConfigured = () =>
   !!process.env.SUPABASE_URL && !!process.env.SUPABASE_KEY
 
+
 export const getSupabase = (): SupabaseClient => {
   if (!isStorageConfigured()) {
     throw new Error("Image upload is not configured (set SUPABASE_URL and SUPABASE_KEY)")

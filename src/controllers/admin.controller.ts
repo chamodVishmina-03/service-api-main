@@ -25,6 +25,8 @@ export const getStats = async (_req: AuthRequest, res: Response) => {
           .limit(5)
       ])
 
+
+      
     res.status(200).json({
       jobsByStatus: Object.fromEntries(byStatus.map((s) => [s._id, s.count])),
       jobsByType: Object.fromEntries(byType.map((s) => [s._id, s.count])),
