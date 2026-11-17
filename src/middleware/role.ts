@@ -3,7 +3,10 @@ import { AuthRequest } from "./auth"
 import { UserRole } from "../models/user.model"
 
 export const requireRole = (roles: UserRole[]) => {
+
   return (req: AuthRequest, res: Response, next: NextFunction) => {
+
+    
     if (!req.user) {
       return res.status(401).json({ message: "Unauthorized" })
     }
