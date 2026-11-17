@@ -50,6 +50,7 @@ app.use("/api/v1/vehicles", VehicleRouter)
 app.use("/api/v1/jobs", JobRouter)
 app.use("/api/v1/admin", AdminRouter)
 
+
 // Local development only. On Vercel the exported app is used as the function.
 if (!process.env.VERCEL) {
   connectDB()
