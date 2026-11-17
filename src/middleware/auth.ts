@@ -1,9 +1,14 @@
 import { NextFunction, Request, Response } from "express"
 import { verifyAccessToken, AuthPayload } from "../util/jwt"
 
+
+
+
 export interface AuthRequest extends Request {
   user?: AuthPayload
 }
+
+
 
 export const authenticate = (
   req: AuthRequest,
@@ -17,6 +22,7 @@ export const authenticate = (
   }
 
   const token = authHeader.split(" ")[1]
+
 
   try {
     req.user = verifyAccessToken(token)
