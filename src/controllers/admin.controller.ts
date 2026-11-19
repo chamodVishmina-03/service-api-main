@@ -5,6 +5,9 @@ import { ServiceJob, JobStatus } from "../models/service-job.model"
 import { Vehicle } from "../models/vehicle.model"
 import { AuthRequest } from "../middleware/auth"
 
+
+
+// show status 
 export const getStats = async (_req: AuthRequest, res: Response) => {
   try {
     const [byStatus, byType, revenueAgg, vehicles, customers, mechanics, recent] =
@@ -41,6 +44,9 @@ export const getStats = async (_req: AuthRequest, res: Response) => {
   }
 }
 
+
+
+// list users 
 export const listUsers = async (req: AuthRequest, res: Response) => {
   try {
     const role = req.query.role as string
@@ -53,6 +59,10 @@ export const listUsers = async (req: AuthRequest, res: Response) => {
   }
 }
 
+
+
+
+// update users role (patch) 
 export const updateUserRoles = async (req: AuthRequest, res: Response) => {
   try {
     const { id } = req.params

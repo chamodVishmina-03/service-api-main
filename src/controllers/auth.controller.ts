@@ -10,6 +10,9 @@ import { AuthRequest } from "../middleware/auth"
 import crypto from "crypto"
 import { isMailConfigured, sendMail } from "../services/mail.service"
 
+
+
+// User register 
 export const register = async (req: Request, res: Response) => {
   try {
     const { name, email, phone, password } = req.body
@@ -26,11 +29,9 @@ export const register = async (req: Request, res: Response) => {
 
 
 
-
-
     
     // Public registration always creates a CUSTOMER.
-    // ADMIN promotes users to MECHANIC / ADMIN later.
+    
     await UserModel.create({
       name,
       email,
@@ -46,6 +47,11 @@ export const register = async (req: Request, res: Response) => {
   }
 }
 
+
+
+
+
+// user login
 export const login = async (req: Request, res: Response) => {
   const { email, password } = req.body
 
@@ -74,6 +80,11 @@ export const login = async (req: Request, res: Response) => {
   }
 }
 
+
+
+
+
+// get login  user details
 export const getMyDetails = async (req: AuthRequest, res: Response) => {
   if (!req.user?.sub) return res.status(401).json({ message: "Unauthorized" })
 
@@ -96,6 +107,9 @@ export const getMyDetails = async (req: AuthRequest, res: Response) => {
   }
 }
 
+
+
+// get access token after expire
 export const getRefreshToken = async (req: Request, res: Response) => {
   const { refreshToken } = req.body
   if (!refreshToken) return res.status(400).json({ message: "Token required" })
@@ -113,11 +127,14 @@ export const getRefreshToken = async (req: Request, res: Response) => {
 
 const hashToken = (t: string) => crypto.createHash("sha256").update(t).digest("hex")
 
+
+
+// foget password
 export const forgotPassword = async (req: Request, res: Response) => {
   const email = String(req.body.email || "").toLowerCase().trim()
   if (!email) return res.status(400).json({ message: "Email required" })
 
-  // Same response whether or not the account exists (prevents user enumeration)
+ 
   const generic = {
     message: "If an account exists for that email, a reset link has been sent."
   }
@@ -146,7 +163,6 @@ export const forgotPassword = async (req: Request, res: Response) => {
       return res.status(200).json(generic)
     }
 
-    // No SMTP configured: log the link, and expose it ONLY outside production (dev/demo).
     console.log(`[forgot-password] Reset link for ${user.email}: ${link}`)
     if (process.env.NODE_ENV !== "production") {
       return res.status(200).json({ ...generic, devResetLink: link })
@@ -157,6 +173,10 @@ export const forgotPassword = async (req: Request, res: Response) => {
   }
 }
 
+
+
+
+// reset password 
 export const resetPassword = async (req: Request, res: Response) => {
   const { token, password } = req.body
   if (!token || !password)
@@ -184,6 +204,11 @@ export const resetPassword = async (req: Request, res: Response) => {
   }
 }
 
+
+
+
+
+// update profile name , number , password we need current passord 
 export const updateMyProfile = async (req: AuthRequest, res: Response) => {
   if (!req.user?.sub) return res.status(401).json({ message: "Unauthorized" })
 

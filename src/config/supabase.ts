@@ -1,14 +1,19 @@
 import { createClient, SupabaseClient } from "@supabase/supabase-js"
 
+// superbase use only photo update
+
 let client: SupabaseClient | null = null
 
-// Supabase use only needed for vehicle photo uploads.
 
 
+
+// url and super key checking 
 export const isStorageConfigured = () =>
   !!process.env.SUPABASE_URL && !!process.env.SUPABASE_KEY
 
 
+
+// we can use superbase connection using that
 export const getSupabase = (): SupabaseClient => {
   if (!isStorageConfigured()) {
     throw new Error("Image upload is not configured (set SUPABASE_URL and SUPABASE_KEY)")
